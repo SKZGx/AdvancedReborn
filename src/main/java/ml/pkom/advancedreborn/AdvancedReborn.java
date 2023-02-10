@@ -1,10 +1,9 @@
 package ml.pkom.advancedreborn;
 
 import ml.pkom.advancedreborn.blocks.RaySolar;
+import ml.pkom.mcpitanlibarch.api.item.CreativeTabBuilder;
 import ml.pkom.mcpitanlibarch.api.registry.ArchRegistry;
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
-import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
@@ -29,9 +28,9 @@ public class AdvancedReborn implements ModInitializer {
     // Add ItemGroup
     public static DefaultedList<ItemStack> addStacksIG = DefaultedList.of();
 
-    public static ItemGroup AR_GROUP = FabricItemGroup.builder(
+    public static ItemGroup AR_GROUP = new CreativeTabBuilder(
             id("item_group")).
-            icon(() -> new ItemStack(Items.CHARGE_PAD_MK_FINAL)).
+            setIcon(() -> new ItemStack(Items.CHARGE_PAD_MK_FINAL)).
             build();
 
     @Override
@@ -50,9 +49,14 @@ public class AdvancedReborn implements ModInitializer {
         ModManager.afterInit();
 
         if (!addStacksIG.isEmpty()) {
+            AR_GROUP.appendStacks(addStacksIG);
+            /*
             for (ItemStack stack : addStacksIG) {
-                ItemGroupEvents.modifyEntriesEvent(AR_GROUP).register(entries -> entries.add(stack));
+
+                //ItemGroupEvents.modifyEntriesEvent(AR_GROUP).register(entries -> entries.add(stack));
             }
+
+             */
         }
     }
 

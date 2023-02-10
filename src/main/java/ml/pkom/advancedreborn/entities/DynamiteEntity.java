@@ -140,6 +140,6 @@ public class DynamiteEntity extends ThrownItemEntity {
             ((ServerWorld)world).spawnParticles(ParticleTypes.EXPLOSION, getX(), getY(), getZ(), 1, 0, 0, 0, 0);
             return;
         }
-        world.createExplosion(this, getX(), getBodyY(0.0625D), getZ(), 4.0F, World.ExplosionSourceType.TNT);
+        world.createExplosion(this, getX(), getBodyY(0.0625D), getZ(), 4.0F, Explosion.DestructionType.BREAK);
     }
 }
