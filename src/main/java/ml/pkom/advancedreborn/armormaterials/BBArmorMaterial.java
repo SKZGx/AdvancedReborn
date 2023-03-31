@@ -1,5 +1,6 @@
 package ml.pkom.advancedreborn.armormaterials;
 
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ArmorMaterial;
 import net.minecraft.item.ArmorMaterials;
@@ -15,13 +16,13 @@ public class BBArmorMaterial implements ArmorMaterial {
     }
 
     @Override
-    public int getDurability(ArmorItem.Type type) {
-        return ArmorMaterials.IRON.getDurability(ArmorItem.Type.CHESTPLATE);
+    public int getDurability(EquipmentSlot type) {
+        return ArmorMaterials.IRON.getDurability(EquipmentSlot.CHEST);
     }
 
     @Override
-    public int getProtection(ArmorItem.Type type) {
-        return ArmorMaterials.IRON.getProtection(ArmorItem.Type.CHESTPLATE);
+    public int getProtectionAmount(EquipmentSlot type) {
+        return ArmorMaterials.IRON.getProtectionAmount(EquipmentSlot.CHEST);
     }
 
     @Override
