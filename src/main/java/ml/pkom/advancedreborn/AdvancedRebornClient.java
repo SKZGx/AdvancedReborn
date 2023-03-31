@@ -11,8 +11,8 @@ import net.minecraft.client.particle.EmotionParticle;
 import net.minecraft.client.render.entity.FlyingItemEntityRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.registry.Registries;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.registry.Registry;
 
 import java.util.UUID;
 
@@ -35,7 +35,7 @@ public class AdvancedRebornClient implements ClientModInitializer {
         ArchRegistryClient.registerScreen(ScreenHandlers.CARDBOARD_BOX_SCREEN_HANDLER, CardboardBoxScreen::new);
 
         ClientNetworking.registerReceiver(Defines.SPAWN_PACKET_ID, (client, player, byteBuf) -> {
-            EntityType<?> et = Registries.ENTITY_TYPE.get(byteBuf.readVarInt());
+            EntityType<?> et = Registry.ENTITY_TYPE.get(byteBuf.readVarInt());
             UUID uuid = byteBuf.readUuid();
             int entityId = byteBuf.readVarInt();
             Vec3d pos = EntitySpawnPacket.PacketBufUtil.readVec3d(byteBuf);

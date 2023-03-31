@@ -8,9 +8,9 @@ import ml.pkom.mcpitanlibarch.api.util.TextUtil;
 import reborncore.client.gui.guibuilder.GuiBuilder;
 import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.crafting.RebornRecipeType;
-import techreborn.client.compat.rei.MachineRecipeDisplay;
-import techreborn.client.compat.rei.ReiPlugin;
-import techreborn.client.compat.rei.machine.AbstractEnergyConsumingMachineCategory;
+import techreborn.compat.rei.MachineRecipeDisplay;
+import techreborn.compat.rei.ReiPlugin;
+import techreborn.compat.rei.machine.AbstractEnergyConsumingMachineCategory;
 
 import java.text.DecimalFormat;
 import java.util.List;

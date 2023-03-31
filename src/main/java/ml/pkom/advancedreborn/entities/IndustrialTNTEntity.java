@@ -6,7 +6,6 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.MovementType;
 import net.minecraft.entity.TntEntity;
 import net.minecraft.network.Packet;
-import net.minecraft.network.listener.ClientPlayPacketListener;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
@@ -24,7 +23,7 @@ public class IndustrialTNTEntity extends TntEntity {
         super(world, x, y, z, entity);
     }
 
-    public Packet<ClientPlayPacketListener> createSpawnPacket() {
+    public Packet<?> createSpawnPacket() {
         return super.createSpawnPacket(); //EntitySpawnPacket.create(this, Defines.SPAWN_PACKET_ID);
     }
 

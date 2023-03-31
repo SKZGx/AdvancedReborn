@@ -2,6 +2,8 @@ package ml.pkom.advancedreborn.blocks;
 
 import ml.pkom.advancedreborn.Particles;
 import ml.pkom.advancedreborn.api.Energy;
+import ml.pkom.mcpitanlibarch.api.util.MathUtil;
+import ml.pkom.mcpitanlibarch.api.util.WorldUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ShapeContext;
@@ -17,13 +19,14 @@ import net.minecraft.state.property.DirectionProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.random.Random;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import techreborn.blockentity.storage.energy.EnergyStorageBlockEntity;
+
+import java.util.Random;
 
 public class ChargePad extends Block {
 
@@ -75,7 +78,7 @@ public class ChargePad extends Block {
         super.appendProperties(builder);
     }
 
-    Random random = Random.create(256);
+    Random random = MathUtil.createRandom(256);
 
     @SuppressWarnings("deprecation")
     public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
@@ -119,8 +122,7 @@ public class ChargePad extends Block {
             double rZ = random.nextInt(9) * 0.1;
             ((ServerWorld)world).spawnParticles(Particles.ENERGY, pos.getX() + 0.1 + rX, pos.getY() + 0.25, pos.getZ() + 0.1 + rZ, 1, 0, 0.3, 0, 0);
             world.setBlockState(pos, state.with(USING, true));
-            //world.createAndScheduleBlockTick(pos, this, 5);
-            world.scheduleBlockTick(pos, this, 5);
+            WorldUtil.scheduleBlockTick(world, pos, this, 5);
             world.updateComparators(pos, this);
         }
     }
