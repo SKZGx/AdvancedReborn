@@ -25,8 +25,8 @@ import reborncore.client.screen.builder.ScreenHandlerBuilder;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
-import reborncore.common.screen.BuiltScreenHandler;
-import reborncore.common.screen.BuiltScreenHandlerProvider;
+import reborncore.client.screen.builder.BuiltScreenHandler;
+import reborncore.client.screen.BuiltScreenHandlerProvider;
 import reborncore.common.util.RebornInventory;
 
 public class RenamingMachineTile extends PowerAcceptorBlockEntity implements IToolDrop, InventoryProvider, BuiltScreenHandlerProvider {
@@ -161,10 +161,11 @@ public class RenamingMachineTile extends PowerAcceptorBlockEntity implements ITo
         return inventory;
     }
 
-    public void writeNbt(NbtCompound tag) {
+    public NbtCompound writeNbt(NbtCompound tag) {
         if (getName() != null) tag.putString("option_name", getName());
         tag.putInt("option_time", coolDown);
         super.writeNbt(tag);
+        return tag;
     }
 
     public void readNbt(NbtCompound tag) {

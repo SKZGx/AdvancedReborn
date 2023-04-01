@@ -147,7 +147,11 @@ public class CardboardBox extends ExtendBlock implements ExtendBlockEntityProvid
     @Override
     public ItemStack getPickStack(BlockView world, BlockPos pos, BlockState state) {
         ItemStack itemStack = super.getPickStack(world, pos, state);
-        world.getBlockEntity(pos, Tiles.CARDBOARD_BOX_TILE).ifPresent(blockEntity -> blockEntity.setStackNbt(itemStack));
+        CardboardBoxTile tile = (CardboardBoxTile)world.getBlockEntity(pos);
+        NbtCompound nbtCompound = tile.writeInventoryNbt(new NbtCompound());
+        if (!nbtCompound.isEmpty()) {
+            itemStack.setSubNbt("BlockEntityTag", nbtCompound);
+        }
         return itemStack;
     }
 

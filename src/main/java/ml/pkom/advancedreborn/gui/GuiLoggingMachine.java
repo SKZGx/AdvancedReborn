@@ -4,7 +4,7 @@ import ml.pkom.advancedreborn.tile.LoggingMachineTile;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerEntity;
 import reborncore.client.gui.builder.GuiBase;
-import reborncore.common.screen.BuiltScreenHandler;
+import reborncore.client.screen.builder.BuiltScreenHandler;
 
 public class GuiLoggingMachine extends GuiBase<BuiltScreenHandler> {
 

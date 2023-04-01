@@ -48,7 +48,7 @@ public class Dynamite extends ExtendItem {
         if (!event.user.getAbilities().creativeMode) stack.decrement(1);
         if (!event.world.isClient()) {
             DynamiteEntity dynamiteEntity = new DynamiteEntity(event.world, event.user.getEntity());
-            dynamiteEntity.setVelocity(event.user.getPlayerEntity(), event.user.getPlayerEntity().getPitch(), event.user.getPlayerEntity().getYaw(), 0.0F, 1.5F, 1.0F);
+            dynamiteEntity.setProperties(event.user.getEntity(), event.user.getPitch(), event.user.getYaw(), 0.0F, 1.5F, 1.0F);
             dynamiteEntity.setItem(stack);
             dynamiteEntity.setSticky(isSticky);
             dynamiteEntity.setIndustrial(isIndustrial);

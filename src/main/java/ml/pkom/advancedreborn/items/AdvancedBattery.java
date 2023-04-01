@@ -12,15 +12,17 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
+import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.powerSystem.RcEnergyItem;
 import reborncore.common.powerSystem.RcEnergyTier;
+import reborncore.common.util.ItemDurabilityExtensions;
 import reborncore.common.util.ItemUtils;
 import techreborn.items.BatteryItem;
 import techreborn.utils.MessageIDs;
 
 import java.util.List;
 
-public class AdvancedBattery extends ExtendItem implements RcEnergyItem {
+public class AdvancedBattery extends ExtendItem implements RcEnergyItem, ItemDurabilityExtensions {
     public int maxEnergy;
     public RcEnergyTier tier;
 
@@ -34,7 +36,7 @@ public class AdvancedBattery extends ExtendItem implements RcEnergyItem {
     public TypedActionResult<ItemStack> onRightClick(ItemUseEvent event) {
         final ItemStack stack = event.user.getPlayerEntity().getStackInHand(event.hand);
         if (event.user.isSneaking()) {
-            ItemUtils.switchActive(stack, 1, MessageIDs.poweredToolID, event.user.getEntity());
+            ItemUtils.switchActive(stack, 1, event.user.isClient(), MessageIDs.poweredToolID);
             return new TypedActionResult<>(ActionResult.SUCCESS, stack);
         }
         return new TypedActionResult<>(ActionResult.PASS, stack);
@@ -42,7 +44,7 @@ public class AdvancedBattery extends ExtendItem implements RcEnergyItem {
 
     @Override
     public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
-        ItemUtils.checkActive(stack, 1, MessageIDs.poweredToolID, entity);
+        ItemUtils.checkActive(stack, 1, world.isClient(), MessageIDs.poweredToolID);
         if (world.isClient) {
             return;
         }
@@ -69,18 +71,15 @@ public class AdvancedBattery extends ExtendItem implements RcEnergyItem {
         return tier;
     }
 
-    @Override
-    public int getItemBarStep(ItemStack stack) {
-        return ItemUtils.getPowerForDurabilityBar(stack);
+    public double getDurability(ItemStack stack) {
+        return 1 - ItemUtils.getPowerForDurabilityBar(stack);
     }
 
-    @Override
-    public boolean isItemBarVisible(ItemStack stack) {
+    public boolean showDurability(ItemStack stack) {
         return true;
     }
 
-    @Override
-    public int getItemBarColor(ItemStack stack) {
-        return ItemUtils.getColorForDurabilityBar(stack);
+    public int getDurabilityColor(ItemStack stack) {
+        return PowerSystem.getDisplayPower().colour;
     }
 }

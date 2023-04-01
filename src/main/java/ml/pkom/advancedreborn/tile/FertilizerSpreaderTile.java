@@ -23,8 +23,8 @@ import reborncore.api.blockentity.InventoryProvider;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
-import reborncore.common.screen.BuiltScreenHandler;
-import reborncore.common.screen.BuiltScreenHandlerProvider;
+import reborncore.client.screen.builder.BuiltScreenHandler;
+import reborncore.client.screen.BuiltScreenHandlerProvider;
 import reborncore.client.screen.builder.ScreenHandlerBuilder;
 import reborncore.common.util.RebornInventory;
 

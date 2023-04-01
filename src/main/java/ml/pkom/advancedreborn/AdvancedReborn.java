@@ -41,7 +41,6 @@ public class AdvancedReborn implements ModInitializer {
         Blocks.init();
         Entities.init();
         Tiles.init();
-        GuiTypes.init();
         Recipes.init();
         Particles.init();
         ScreenHandlers.init();

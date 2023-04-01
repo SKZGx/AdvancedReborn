@@ -1,6 +1,6 @@
 package ml.pkom.advancedreborn.mixins;
 
-import ml.pkom.advancedreborn.client.ClientGuiTypes;
+import ml.pkom.advancedreborn.GuiTypes;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -11,6 +11,6 @@ import techreborn.TechRebornClient;
 public class TechRebornClientMixin {
     @Inject(method = "onInitializeClient", at = @At("HEAD"), remap = false)
     public void onInitializeClient(CallbackInfo ci) {
-        ClientGuiTypes.init();
+        GuiTypes.init();
     }
 }

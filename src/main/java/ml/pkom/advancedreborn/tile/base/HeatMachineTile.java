@@ -76,8 +76,9 @@ public abstract class HeatMachineTile extends PowerAcceptorBlockEntity {
         setHeat(tag.getInt("heat"));
     }
 
-    public void writeNbt(NbtCompound tag) {
+    public NbtCompound writeNbt(NbtCompound tag) {
         tag.putInt("heat", getHeat());
         super.writeNbt(tag);
+        return tag;
     }
 }

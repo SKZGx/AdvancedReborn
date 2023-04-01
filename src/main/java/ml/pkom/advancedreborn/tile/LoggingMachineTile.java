@@ -27,8 +27,8 @@ import reborncore.api.blockentity.InventoryProvider;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
-import reborncore.common.screen.BuiltScreenHandler;
-import reborncore.common.screen.BuiltScreenHandlerProvider;
+import reborncore.client.screen.builder.BuiltScreenHandler;
+import reborncore.client.screen.BuiltScreenHandlerProvider;
 import reborncore.client.screen.builder.ScreenHandlerBuilder;
 import reborncore.common.util.RebornInventory;
 
@@ -138,7 +138,7 @@ public class LoggingMachineTile extends PowerAcceptorBlockEntity implements IToo
     public void insertStack(ItemStack stack) {
         int[] indexes = insertItemSlots;
         if (stack.isIn(ItemTags.SAPLINGS) || stack.getItem() instanceof BlockItem && ((BlockItem) stack.getItem()).getBlock() instanceof SaplingBlock) {
-            indexes = ArrayUtils.addFirst(insertItemSlots, saplingSlot);
+            indexes = ArrayUtils.add(insertItemSlots, 0, saplingSlot);
         }
         for (int i : indexes) {
             ItemStack slotStack = inventory.getStack(i);

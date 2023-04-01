@@ -1,10 +1,9 @@
 package ml.pkom.advancedreborn.items;
 
-import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.HashMultimap;
-import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import ml.pkom.advancedreborn.Items;
+import ml.pkom.advancedreborn.api.Energy;
 import ml.pkom.mcpitanlibarch.api.item.CompatibleItemSettings;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.attribute.EntityAttribute;
@@ -17,12 +16,14 @@ import net.minecraft.item.ArmorMaterial;
 import net.minecraft.item.ItemStack;
 import reborncore.api.events.ApplyArmorToDamageCallback;
 import reborncore.api.items.ArmorBlockEntityTicker;
+import reborncore.api.items.ItemStackModifiers;
+import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.powerSystem.RcEnergyItem;
 import reborncore.common.powerSystem.RcEnergyTier;
 import reborncore.common.util.ItemUtils;
 import techreborn.items.armor.TRArmourItem;
 
-public class NanoSuitItem extends TRArmourItem implements ArmorBlockEntityTicker, RcEnergyItem {
+public class NanoSuitItem extends TRArmourItem implements ItemStackModifiers, ArmorBlockEntityTicker, RcEnergyItem {
     public NanoSuitItem(ArmorMaterial material, EquipmentSlot slot, CompatibleItemSettings settings) {
         super(material, slot, settings.build());
 
@@ -58,19 +59,16 @@ public class NanoSuitItem extends TRArmourItem implements ArmorBlockEntityTicker
         return false;
     }
 
-    @Override
-    public int getItemBarStep(ItemStack stack) {
-        return ItemUtils.getPowerForDurabilityBar(stack);
+    public double getDurability(ItemStack stack) {
+        return 1 - ItemUtils.getPowerForDurabilityBar(stack);
     }
 
-    @Override
-    public boolean isItemBarVisible(ItemStack stack) {
+    public int getDurabilityColor(ItemStack stack) {
+        return PowerSystem.getDisplayPower().colour;
+    }
+
+    public boolean showDurability(ItemStack stack) {
         return true;
-    }
-
-    @Override
-    public int getItemBarColor(ItemStack stack) {
-        return ItemUtils.getColorForDurabilityBar(stack);
     }
 
     @Override
@@ -79,16 +77,12 @@ public class NanoSuitItem extends TRArmourItem implements ArmorBlockEntityTicker
     }
 
     @Override
-    public Multimap<EntityAttribute, EntityAttributeModifier> getAttributeModifiers(ItemStack stack, EquipmentSlot equipmentSlot) {
-        ArrayListMultimap<EntityAttribute, EntityAttributeModifier> attributes = ArrayListMultimap.create(super.getAttributeModifiers(stack, getSlotType()));
-
-        if (equipmentSlot == this.getSlotType() && getStoredEnergy(stack) > 0) {
-            attributes.put(EntityAttributes.GENERIC_ARMOR, new EntityAttributeModifier(MODIFIERS[getSlotType().getEntitySlotId()], "Armor modifier", 2, EntityAttributeModifier.Operation.ADDITION));
-        } else if (equipmentSlot == this.getSlotType()) {
-            attributes.put(EntityAttributes.GENERIC_ARMOR, new EntityAttributeModifier(MODIFIERS[getSlotType().getEntitySlotId()], "Armor modifier", -1, EntityAttributeModifier.Operation.ADDITION));
+    public void getAttributeModifiers(EquipmentSlot equipmentSlot, ItemStack stack, Multimap<EntityAttribute, EntityAttributeModifier> attributes) {
+        if (equipmentSlot == this.slot && Energy.of(stack).getStoredEnergy(stack) > 0) {
+            attributes.put(EntityAttributes.GENERIC_ARMOR, new EntityAttributeModifier(MODIFIERS[slot.getEntitySlotId()], "Armor modifier", 2, EntityAttributeModifier.Operation.ADDITION));
+        } else if (equipmentSlot == this.slot) {
+            attributes.put(EntityAttributes.GENERIC_ARMOR, new EntityAttributeModifier(MODIFIERS[slot.getEntitySlotId()], "Armor modifier", -1, EntityAttributeModifier.Operation.ADDITION));
         }
-
-        return ImmutableMultimap.copyOf(attributes);
     }
 
     @Override
